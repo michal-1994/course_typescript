@@ -74,30 +74,30 @@ function validate(validatableInput: Validatable) {
     isValid = isValid && validatableInput.value.toString().trim().length !== 0;
   }
   if (
-    validatableInput.minLength != null &&
+    validatableInput.minLength != undefined &&
     typeof validatableInput.value === "string"
   ) {
     isValid =
       isValid && validatableInput.value.length > validatableInput.minLength;
   }
   if (
-    validatableInput.maxLength != null &&
+    validatableInput.maxLength != undefined &&
     typeof validatableInput.value === "string"
   ) {
     isValid =
       isValid && validatableInput.value.length < validatableInput.maxLength;
   }
   if (
-    validatableInput.min != null &&
+    validatableInput.min != undefined &&
     typeof validatableInput.value === "number"
   ) {
-    isValid = isValid && validatableInput.value > validatableInput.min;
+    isValid = isValid && validatableInput.value >= validatableInput.min;
   }
   if (
-    validatableInput.max != null &&
+    validatableInput.max != undefined &&
     typeof validatableInput.value === "number"
   ) {
-    isValid = isValid && validatableInput.value < validatableInput.max;
+    isValid = isValid && validatableInput.value <= validatableInput.max;
   }
   return isValid;
 }
@@ -156,6 +156,15 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
 
 class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
   private project: Project;
+
+  get persons() {
+    if (this.project.people === 1) {
+      return "1 person";
+    } else {
+      return `${this.project.people} persons`;
+    }
+  }
+
   constructor(hostId: string, project: Project) {
     super("single-project", hostId, false, project.id);
     this.project = project;
@@ -167,9 +176,9 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
   configure() {}
 
   renderContent() {
-    const { title, people, description } = this.project;
+    const { title, description } = this.project;
     this.element.querySelector("h2")!.textContent = title;
-    this.element.querySelector("h3")!.textContent = people.toString();
+    this.element.querySelector("h3")!.textContent = this.persons + " assigned";
     this.element.querySelector("p")!.textContent = description;
   }
 }
