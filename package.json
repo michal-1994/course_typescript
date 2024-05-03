@@ -4,9 +4,7 @@
   "description": "Understanding TypeScript Course Setup",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "lite-server",
-    "ts": "npx tsc --watch",
+    "start": "webpack-dev-server",
     "build": "webpack"
   },
   "keywords": [
