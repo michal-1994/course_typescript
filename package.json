@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "lite-server",
-    "ts": "npx tsc --watch"
+    "ts": "npx tsc --watch",
+    "build": "webpack"
   },
   "keywords": [
     "typescript",
